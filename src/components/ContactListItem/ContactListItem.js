@@ -10,7 +10,7 @@ import {
   makeStyles,
 } from '@material-ui/core';
 import { blue } from '@material-ui/core/colors';
-import phonebookOperations from '../../redux/phoneBook/phoneBook-operations';
+import phonebookOperations from '../../redux/phonebook/phoneBook-operations';
 import styles from './ContactListItem.module.css';
 
 const useStyles = makeStyles(theme => ({

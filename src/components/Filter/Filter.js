@@ -1,12 +1,12 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
-import { changeFilter } from '../../redux/phoneBook/phoneBook-actions';
+import { changeFilter } from '../../redux/phonebook/phoneBook-actions';
 import styles from './Filter.module.css';
 import filterTransitionStyles from '../../transitionStyles/filterTransition.module.css';
 import {
   getFilter,
   getContactsLength,
-} from '../../redux/phoneBook/phoneBook-selectors';
+} from '../../redux/phonebook/phoneBook-selectors';
 
 export default function Filter() {
   const dispatch = useDispatch();

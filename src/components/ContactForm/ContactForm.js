@@ -4,13 +4,13 @@ import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui';
 import { Button } from '@material-ui/core';
 import * as yup from 'yup';
-import phonebookOperations from '../../redux/phoneBook/phoneBook-operations';
+import phonebookOperations from '../../redux/phonebook/phoneBook-operations';
 import styles from './ContactForm.module.css';
 import Notification from '../Notification/Notification';
 import {
   getAllContacts,
   getErrorMessage,
-} from '../../redux/phoneBook/phoneBook-selectors';
+} from '../../redux/phonebook/phoneBook-selectors';
 
 const validationSchema = yup.object({
   name: yup.string().required("Enter contact's name"),

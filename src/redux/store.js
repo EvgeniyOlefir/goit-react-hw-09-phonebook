@@ -11,7 +11,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import contactsReducer from './phoneBook/phoneBook-reducers';
+import contactsReducer from './phonebook/phoneBook-reducers';
 import authReducer from './auth/auth-reducer';
 
 const authPersistConfig = {
