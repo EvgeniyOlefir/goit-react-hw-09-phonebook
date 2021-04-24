@@ -12,10 +12,8 @@ export default function HomeView() {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>
-        Welcome to homepage, {userName ? userName : email ? email : 'Guest'}
-        <span role="img" aria-label="Иконка приветствия">
-          😃
-        </span>
+        Welcome to Phonebook, {userName ? userName : email ? email : 'Guest'}
+        <span role="img" aria-label="Иконка приветствия"></span>
       </h1>
       {isAuthLoading && (
         <Modal>
