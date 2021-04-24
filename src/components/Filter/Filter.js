@@ -1,15 +1,19 @@
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
-import { changeFilter } from '../../redux/phonebook/phonebook-actions';
+import { changeFilter } from '../../redux/phoneBook/phoneBook-actions';
 import styles from './Filter.module.css';
 import filterTransitionStyles from '../../transitionStyles/filterTransition.module.css';
 import {
   getFilter,
   getContactsLength,
-} from '../../redux/phonebook/phonebook-selectors';
+} from '../../redux/phoneBook/phoneBook-selectors';
 
-function Filter({ initialValue, contactsLength, onFilterChange }) {
+export default function Filter() {
+  const dispatch = useDispatch();
+  const initialValue = useSelector(getFilter);
+  const contactsLength = useSelector(getContactsLength);
+  const onFilterChange = e => dispatch(changeFilter(e.target.value));
+
   return (
     <CSSTransition
       in={contactsLength > 1}
@@ -25,30 +29,10 @@ function Filter({ initialValue, contactsLength, onFilterChange }) {
             type="text"
             name="name"
             value={initialValue}
-            onChange={e => onFilterChange(e.target.value)}
+            onChange={onFilterChange}
           />
         </label>
       </div>
     </CSSTransition>
   );
 }
-
-const mapStateToProps = state => ({
-  initialValue: getFilter(state),
-  contactsLength: getContactsLength(state),
-});
-
-const mapDispatchToProps = {
-  onFilterChange: changeFilter,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Filter);
-
-Filter.defaultProps = {
-  initialValue: '',
-};
-Filter.propTypes = PropTypes.shape({
-  initialValue: PropTypes.string,
-  contactsLength: PropTypes.number.isRequired,
-  onFilterChange: PropTypes.func.isRequired,
-}).isRequired;

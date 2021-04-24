@@ -6,16 +6,17 @@
   margin: 10px;
   border: 1px solid #000000;
   border-radius: 10px;
+  
 }
 
 .even {
   composes: listItem;
-  /* background-color: rgb(181, 199, 255); */
+  background-color: rgb(181, 199, 255);
 }
 
 .odd {
   composes: listItem;
-  /* background-color: rgb(255, 211, 211); */
+  background-color: rgb(255, 211, 211);
 }
 
 .deleteButton {

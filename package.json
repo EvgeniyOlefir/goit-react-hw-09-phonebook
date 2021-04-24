@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "author": {
-    "name": "Evgeniy Olefir",
-    "email": "evgeniy.olefir@gmail.com"
+    "name": "Dmitriy Medychenko",
+    "email": "rAv3ndima91@gmail.com"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.3",

@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Formik, Form, Field } from 'formik';
 import * as yup from 'yup';
 import { CSSTransition } from 'react-transition-group';
@@ -21,91 +21,84 @@ const validationSchema = yup.object({
     .required('Please enter password'),
 });
 
-const RegisterView = ({ handleRegisterClick, errorMessage, isAuthLoading }) => (
-  <>
-    {isAuthLoading && (
-      <Modal>
-        <Preloader />
-      </Modal>
-    )}
-    <CSSTransition
-      in={true}
-      appear
-      classNames={loginAndRegisterViewTransitionStyles}
-      timeout={300}
-      unmountOnExit
-    >
-      <Container maxWidth="md">
-        <Notification
-          notificationInit={Boolean(errorMessage)}
-          message={errorMessage}
-        />
-        <Title title="Register form:" />
-        <Formik
-          initialValues={{ name: '', email: '', password: '' }}
-          validationSchema={validationSchema}
-          onSubmit={(
-            { name, email, password },
-            { resetForm, setSubmitting },
-          ) => {
-            handleRegisterClick({ name, email, password });
-            setSubmitting(false);
-            resetForm();
-          }}
-        >
-          <Form className={styles.contactForm}>
-            <Field
-              component={TextField}
-              type="text"
-              name="name"
-              label="Name:"
-              variant="outlined"
-              margin="dense"
-            />
+export default function RegisterView() {
+  const dispatch = useDispatch();
+  const isAuthLoading = useSelector(authSelectors.getIsAuthLoading);
+  const errorMessage = useSelector(authSelectors.getErrorMessage);
+  const handleRegisterClick = contactObj =>
+    dispatch(authOperations.register(contactObj));
+  return (
+    <>
+      {isAuthLoading && (
+        <Modal>
+          <Preloader />
+        </Modal>
+      )}
+      <CSSTransition
+        in={true}
+        appear
+        classNames={loginAndRegisterViewTransitionStyles}
+        timeout={300}
+        unmountOnExit
+      >
+        <Container maxWidth="md">
+          <Notification
+            notificationInit={Boolean(errorMessage)}
+            message={errorMessage}
+          />
+          <Title title="Register form:" />
+          <Formik
+            initialValues={{ name: '', email: '', password: '' }}
+            validationSchema={validationSchema}
+            onSubmit={(
+              { name, email, password },
+              { resetForm, setSubmitting },
+            ) => {
+              handleRegisterClick({ name, email, password });
+              setSubmitting(false);
+              resetForm();
+            }}
+          >
+            <Form className={styles.contactForm}>
+              <Field
+                component={TextField}
+                type="text"
+                name="name"
+                label="Name:"
+                variant="outlined"
+                margin="dense"
+              />
 
-            <Field
-              component={TextField}
-              type="email"
-              name="email"
-              label="Email:"
-              variant="outlined"
-              margin="dense"
-            />
+              <Field
+                component={TextField}
+                type="email"
+                name="email"
+                label="Email:"
+                variant="outlined"
+                margin="dense"
+              />
 
-            <Field
-              component={TextField}
-              type="text"
-              name="password"
-              label="Password:"
-              variant="outlined"
-              margin="dense"
-            />
+              <Field
+                component={TextField}
+                type="text"
+                name="password"
+                label="Password:"
+                variant="outlined"
+                margin="dense"
+              />
 
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              size="medium"
-            >
-              Register
-            </Button>
-            {/* <button type="submit" className={styles.submitButton}>
-            Register
-          </button> */}
-          </Form>
-        </Formik>
-      </Container>
-    </CSSTransition>
-  </>
-);
-
-const mapStateToProps = state => ({
-  errorMessage: authSelectors.getErrorMessage(state),
-  isAuthLoading: authSelectors.getIsAuthLoading(state),
-});
-
-const mapDispatchToProps = {
-  handleRegisterClick: authOperations.register,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterView);
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                size="medium"
+              >
+                Register
+              </Button>
+            </Form>
+          </Formik>
+        </Container>
+      </CSSTransition>
+    </>
+  );
+}

@@ -1,5 +1,5 @@
-import { connect } from 'react-redux';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useSelector, useDispatch } from 'react-redux';
+import { Formik, Form, Field } from 'formik';
 import * as yup from 'yup';
 import { CSSTransition } from 'react-transition-group';
 import { TextField } from 'formik-material-ui';
@@ -17,76 +17,74 @@ const validationSchema = yup.object({
   password: yup.string().required('Please enter password'),
 });
 
-const LogInView = ({ handleLogInClick, errorMessage, isAuthLoading }) => (
-  <>
-    {isAuthLoading && (
-      <Modal>
-        <Preloader />
-      </Modal>
-    )}
-    <CSSTransition
-      in={true}
-      appear
-      classNames={loginAndRegisterViewTransitionStyles}
-      timeout={300}
-      unmountOnExit
-    >
-      <Container maxWidth="md">
-        <Notification
-          notificationInit={Boolean(errorMessage)}
-          message={errorMessage}
-        />
-        <Title title="Login form:" />
-        <Formik
-          initialValues={{ email: '', password: '' }}
-          validationSchema={validationSchema}
-          onSubmit={({ email, password }, { resetForm, setSubmitting }) => {
-            handleLogInClick({ email, password });
-            setSubmitting(false);
-            resetForm();
-          }}
-        >
-          <Form className={styles.contactForm}>
-            <Field
-              component={TextField}
-              type="email"
-              name="email"
-              label="Email:"
-              variant="outlined"
-              margin="dense"
-            />
+export default function LogInView() {
+  const dispatch = useDispatch();
 
-            <Field
-              component={TextField}
-              type="text"
-              name="password"
-              label="Password:"
-              variant="outlined"
-              margin="dense"
-            />
+  const errorMessage = useSelector(authSelectors.getErrorMessage);
+  const isAuthLoading = useSelector(authSelectors.getIsAuthLoading);
+  const handleLogInClick = contactObj =>
+    dispatch(authOperations.logIn(contactObj));
 
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              size="medium"
-            >
-              Log In
-            </Button>
-          </Form>
-        </Formik>
-      </Container>
-    </CSSTransition>
-  </>
-);
+  return (
+    <>
+      {isAuthLoading && (
+        <Modal>
+          <Preloader />
+        </Modal>
+      )}
+      <CSSTransition
+        in={true}
+        appear
+        classNames={loginAndRegisterViewTransitionStyles}
+        timeout={300}
+        unmountOnExit
+      >
+        <Container maxWidth="md">
+          <Notification
+            notificationInit={Boolean(errorMessage)}
+            message={errorMessage}
+          />
+          <Title title="Login form:" />
+          <Formik
+            initialValues={{ email: '', password: '' }}
+            validationSchema={validationSchema}
+            onSubmit={({ email, password }, { resetForm, setSubmitting }) => {
+              handleLogInClick({ email, password });
+              setSubmitting(false);
+              resetForm();
+            }}
+          >
+            <Form className={styles.contactForm}>
+              <Field
+                component={TextField}
+                type="email"
+                name="email"
+                label="Email:"
+                variant="outlined"
+                margin="dense"
+              />
 
-const mapStateToProps = state => ({
-  errorMessage: authSelectors.getErrorMessage(state),
-  isAuthLoading: authSelectors.getIsAuthLoading(state),
-});
+              <Field
+                component={TextField}
+                type="text"
+                name="password"
+                label="Password:"
+                variant="outlined"
+                margin="dense"
+              />
 
-const mapDispatchToProps = {
-  handleLogInClick: authOperations.logIn,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LogInView);
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                size="medium"
+              >
+                Log In
+              </Button>
+            </Form>
+          </Formik>
+        </Container>
+      </CSSTransition>
+    </>
+  );
+}

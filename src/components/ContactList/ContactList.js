@@ -1,12 +1,13 @@
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import styles from './ContactList.module.css';
 import contactListTransition from '../../transitionStyles/contactListTransition.module.css';
 import ContactListItem from '../ContactListItem/ContactListItem';
-import { getVisibleContacts } from '../../redux/phonebook/phonebook-selectors';
+import { getVisibleContacts } from '../../redux/phoneBook/phoneBook-selectors';
 
-function ContactList({ contacts }) {
+export default function ContactList() {
+  const contacts = useSelector(getVisibleContacts);
+
   return (
     <>
       <CSSTransition
@@ -31,11 +32,3 @@ function ContactList({ contacts }) {
     </>
   );
 }
-
-const mapStateToProps = state => ({ contacts: getVisibleContacts(state) });
-
-export default connect(mapStateToProps, null)(ContactList);
-
-ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(PropTypes.object).isRequired,
-};

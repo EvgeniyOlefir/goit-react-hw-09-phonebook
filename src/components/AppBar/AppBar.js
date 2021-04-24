@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 import { Container } from '@material-ui/core';
 import Navigation from '../Navigation/Navigation';
@@ -8,7 +8,9 @@ import UserMenu from '../UserMenu/UserMenu';
 import AuthMenu from '../AuthMenu/AuthMenu';
 import authSelectors from '../../redux/auth/auth-selectors';
 
-const AppBar = ({ isAuthenticated }) => {
+export default function AppBar() {
+  const isAuthenticated = useSelector(authSelectors.getIsAuthenticated);
+
   return (
     <CSSTransition
       in={true}
@@ -25,10 +27,4 @@ const AppBar = ({ isAuthenticated }) => {
       </Container>
     </CSSTransition>
   );
-};
-
-const mapStateToProps = state => ({
-  isAuthenticated: authSelectors.getIsAuthenticated(state),
-});
-
-export default connect(mapStateToProps, null)(AppBar);
+}

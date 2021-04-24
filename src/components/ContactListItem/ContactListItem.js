@@ -1,6 +1,7 @@
+import { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   Avatar,
   Box,
@@ -9,7 +10,7 @@ import {
   makeStyles,
 } from '@material-ui/core';
 import { blue } from '@material-ui/core/colors';
-import phonebookOperations from '../../redux/phonebook/phonebook-operations';
+import phonebookOperations from '../../redux/phoneBook/phoneBook-operations';
 import styles from './ContactListItem.module.css';
 
 const useStyles = makeStyles(theme => ({
@@ -27,9 +28,15 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ContactListItem = ({ idx, contact, location, onDeleteButtonClick }) => {
+export default function ContactListItem({ idx, contact, location }) {
   const { id, name, number } = contact;
+  const dispatch = useDispatch();
+  const onDeleteButtonClick = useCallback(
+    () => dispatch(phonebookOperations.deleteContact(id)),
+    [dispatch, id],
+  );
   const classes = useStyles();
+
   return (
     <li key={id} className={idx % 2 === 0 ? styles.even : styles.odd}>
       <Box className={classes.root}>
@@ -62,7 +69,7 @@ const ContactListItem = ({ idx, contact, location, onDeleteButtonClick }) => {
         <IconButton
           aria-label="delete"
           type="button"
-          onClick={() => onDeleteButtonClick(id)}
+          onClick={onDeleteButtonClick}
         >
           <SvgIcon>
             <path
@@ -74,16 +81,9 @@ const ContactListItem = ({ idx, contact, location, onDeleteButtonClick }) => {
       </Box>
     </li>
   );
-};
-
-const mapDispatchToProps = {
-  onDeleteButtonClick: phonebookOperations.deleteContact,
-};
-
-export default connect(null, mapDispatchToProps)(withRouter(ContactListItem));
+}
 
 ContactListItem.propTypes = PropTypes.shape({
   idx: PropTypes.number.isRequired,
   contact: PropTypes.object.isRequired,
-  onDeleteButtonClick: PropTypes.func.isRequired,
 }).isRequired;

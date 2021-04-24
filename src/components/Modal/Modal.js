@@ -3,12 +3,11 @@ import styles from './Modal.module.css';
 
 const modalRoot = document.querySelector('#modal-root');
 
-const Modal = ({ children }) => {
+export default function Modal({ children }) {
   return createPortal(
     <div className={styles.Overlay}>
       <div className={styles.Modal}>{children}</div>
     </div>,
     modalRoot,
   );
-};
-export default Modal;
+}
