@@ -8,7 +8,7 @@ import { Container, Button, Box } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 import styles from './EditContactView.module.css';
 import routesData from '../../routes';
-import phonebookOperations from '../../redux/phonebook/phoneBook-operations';
+import phonebookOperations from '../../redux/phonebook/phonebook-operations';
 import Notification from '../../components/Notification/Notification';
 import Title from '../../components/Title/Title';
 import Modal from '../../components/Modal/Modal';
@@ -17,7 +17,7 @@ import {
   getAllContacts,
   getErrorMessage,
   getLoading,
-} from '../../redux/phonebook/phoneBook-selectors';
+} from '../../redux/phonebook/phonebook-selectors';
 import { authSelectors } from '../../redux/auth';
 
 const validationSchema = yup.object({

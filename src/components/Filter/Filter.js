@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
-import { changeFilter } from '../../redux/phonebook/phoneBook-actions';
+import { changeFilter } from '../../redux/phonebook/phonebook-actions';
 import styles from './Filter.module.css';
 import filterTransitionStyles from '../../transitionStyles/filterTransition.module.css';
 import {
   getFilter,
   getContactsLength,
-} from '../../redux/phonebook/phoneBook-selectors';
+} from '../../redux/phonebook/phonebook-selectors';
 
 function Filter({ initialValue, contactsLength, onFilterChange }) {
   return (

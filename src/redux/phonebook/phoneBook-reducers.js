@@ -15,7 +15,7 @@ import {
   deleteContactError,
   changeFilter,
   errorRemover,
-} from './phoneBook-actions';
+} from './phonebook-actions';
 
 const initialState = {
   contacts: {

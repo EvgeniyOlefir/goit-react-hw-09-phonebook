@@ -8,11 +8,11 @@ import ContactList from '../../components/ContactList/ContactList';
 import Modal from '../../components/Modal/Modal';
 import Preloader from '../../components/Preloader/Preloader';
 import styles from '../../transitionStyles/app.module.css';
-import phonebookOperations from '../../redux/phonebook/phoneBook-operations';
+import phonebookOperations from '../../redux/phonebook/phonebook-operations';
 import {
   getAllContacts,
   getLoading,
-} from '../../redux/phonebook/phoneBook-selectors';
+} from '../../redux/phonebook/phonebook-selectors';
 import { authSelectors } from '../../redux/auth';
 
 class ContactsView extends Component {

@@ -13,7 +13,7 @@ import {
   deleteContactSuccess,
   deleteContactError,
   errorRemover,
-} from './phoneBook-actions';
+} from './phonebook-actions';
 
 const resetError = dispatch =>
   setTimeout(() => dispatch(errorRemover(null)), 3000);
